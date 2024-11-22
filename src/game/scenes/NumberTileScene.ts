@@ -1,16 +1,15 @@
 import { GameObjects, Scene } from 'phaser';
 
 import { EventBus } from '../EventBus';
-
-import { NumberTile } from '../elements/NumberTile';
+import { NumberTileSet } from '../elements/NumberTileSet';
+import { SlidingPuzzleModel } from '../models/SlidingPuzzleModel';
 
 export class NumberTileScene extends Scene {
     background: GameObjects.Image;
     logo: GameObjects.Image;
     title: GameObjects.Text;
     logoTween: Phaser.Tweens.Tween | null;
-
-    things: Phaser.GameObjects.GameObject[] = [];
+    updateList: Phaser.GameObjects.GameObject[] = [];
 
     constructor() {
         super('NumberTileScene');
@@ -20,7 +19,7 @@ export class NumberTileScene extends Scene {
         this.background = this.add.image(512, 384, 'paper-background');
 
         this.title = this.add
-            .text(512, 460, 'Number Tiles', {
+            .text(512, 40, 'Sliding Puzzle', {
                 fontFamily: 'Arial Black',
                 fontSize: 38,
                 color: '#ffffff',
@@ -28,21 +27,24 @@ export class NumberTileScene extends Scene {
                 strokeThickness: 8,
                 align: 'center',
             })
-            .setOrigin(0.5)
+            .setOrigin(0.5, 0)
             .setDepth(100);
 
-        let rowCount = 4;
-        for (let i = 0; i < rowCount; i++) {
-            this.things.push(
-                new NumberTile(this, i.toString(), 100 + i * 65, 100)
-            );
-        }
+        let puzzle = Phaser.Display.Align.In.Center(
+            new NumberTileSet(this, new SlidingPuzzleModel(4)),
+            this.background
+        );
+
+        puzzle.x = puzzle.x - puzzle.center().x;
+        puzzle.y = puzzle.y - puzzle.center().y;
+
+        this.updateList.push(puzzle);
 
         EventBus.emit('current-scene-ready', this);
     }
 
     override update() {
-        this.things.forEach((thing) => {
+        this.updateList.forEach((thing) => {
             thing.update();
         });
     }

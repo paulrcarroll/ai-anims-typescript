@@ -33,13 +33,6 @@ export class MainMenu extends Scene {
             .setOrigin(0.5)
             .setDepth(100);
 
-        let rowCount = 4;
-        for (let i = 0; i < rowCount; i++) {
-            this.things.push(
-                new NumberTile(this, i.toString(), 100 + i * 65, 100)
-            );
-        }
-
         EventBus.emit('current-scene-ready', this);
     }
 

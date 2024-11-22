@@ -37,7 +37,7 @@
         "@angular/router": "^17.2.0",
         "npm": "^10.9.0",
         "phaser": "^3.86.0",
-        "phaser3-rex-plugins": "^1.80.10",
+        "phaser3-rex-plugins": "^1.80.11",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0",
         "zone.js": "~0.14.3"
@@ -47,6 +47,7 @@
         "@angular/cli": "^17.2.2",
         "@angular/compiler-cli": "^17.2.0",
         "@types/jasmine": "~5.1.0",
+        "angular-cli-ghpages": "^2.0.3",
         "jasmine-core": "~5.1.0",
         "karma": "~6.4.0",
         "karma-chrome-launcher": "~3.2.0",
