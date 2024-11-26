@@ -1,22 +1,14 @@
 import Phaser from 'phaser';
 import { NumberTileSet } from './NumberTileSet';
 
-export interface TileMoves {
-    Up: Phaser.Tweens.Tween;
-    Down: Phaser.Tweens.Tween;
-    Left: Phaser.Tweens.Tween;
-    Right: Phaser.Tweens.Tween;
-}
-
 export class NumberTile extends Phaser.GameObjects.Container {
     shadow: any;
     text: Phaser.GameObjects.Text;
     box: Phaser.GameObjects.Graphics;
-    moves: TileMoves;
 
     constructor(
         private parentSet: NumberTileSet,
-        displayText: string,
+        public displayText: string,
         x: number,
         y: number,
         private size: number
@@ -51,57 +43,7 @@ export class NumberTile extends Phaser.GameObjects.Container {
             });
         }
 
-        this.addTweens();
         scene.add.existing(this);
-    }
-
-    addTweens() {
-        const baseTween = {
-            targets: this,
-            // yoyo: true,
-            repeat: 0,
-        };
-
-        const tweenDefaults = {
-            duration: 900,
-            ease: 'Back.easeInOut',
-        };
-
-        const moveSize = this.parentSet.tileSize + this.parentSet.tileGap;
-        this.moves = {
-            Left: this.scene.tweens.add({
-                ...baseTween,
-                x: {
-                    value: this.x - moveSize,
-                    ...tweenDefaults,
-                },
-            }),
-            Right: this.scene.tweens.add({
-                ...baseTween,
-                x: {
-                    value: this.x + moveSize,
-                    ...tweenDefaults,
-                },
-            }),
-            Up: this.scene.tweens.add({
-                ...baseTween,
-                y: {
-                    value: this.y - moveSize,
-                    ...tweenDefaults,
-                },
-            }),
-            Down: this.scene.tweens.add({
-                ...baseTween,
-                y: {
-                    value: this.y + moveSize,
-                    ...tweenDefaults,
-                },
-            }),
-        };
-
-        for (var move of Object.values(this.moves)) {
-            move.pause();
-        }
     }
 
     private drawBox(color: number) {

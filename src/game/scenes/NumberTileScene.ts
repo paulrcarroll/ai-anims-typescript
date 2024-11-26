@@ -31,7 +31,7 @@ export class NumberTileScene extends Scene {
             .setDepth(100);
 
         let puzzle = Phaser.Display.Align.In.Center(
-            new NumberTileSet(this, new SlidingPuzzleModel(4)),
+            new NumberTileSet(this, 4),
             this.background
         );
 
