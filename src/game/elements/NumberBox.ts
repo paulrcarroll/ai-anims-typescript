@@ -53,45 +53,10 @@ export class NumberBox extends Phaser.GameObjects.Container {
         this.box1 = this.drawBox(0, 0, boxWid, boxHt, this.displayText);
         this.box2 = this.drawBox(0, 40, boxWid, boxHt + 10, 'Percent:');
 
+        this.setSize(200, 70);
+
         var pipeline = this.glowPlugin!.add(this);
         pipeline.intensity = 0.02;
-    }
-
-    drawBox2(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        text?: string
-    ) {
-        const color = 0xaaccff;
-        const thickness = 2;
-        const alpha = 1;
-
-        this.graphics.lineStyle(thickness, color, alpha);
-        this.graphics.strokeRect(x, y, width, height);
-
-        if (text) {
-            let formatRect = this.scene.add.rectangle(
-                0,
-                0,
-                width,
-                height,
-                0xffaaaa
-            );
-            this.add([formatRect]);
-
-            Phaser.Display.Align.In.TopLeft(formatRect, this.outerRect);
-
-            formatRect.visible = false;
-
-            const textObj = this.scene.add.text(0, 0, text, this.textConfig1);
-
-            Phaser.Display.Align.In.Center(textObj, formatRect);
-            this.add([textObj]);
-
-            var effect = textObj.preFX!.addPixelate(0.5);
-        }
     }
 
     drawBox(
@@ -113,6 +78,7 @@ export class NumberBox extends Phaser.GameObjects.Container {
         this.graphics.generateTexture('box', width, height);
 
         let boxContainer = this.scene.add.container(x, y);
+        boxContainer.setSize(width, height);
         this.add([boxContainer]);
 
         let img = this.scene.add.image(0, 0, 'box').setOrigin(0);
@@ -162,7 +128,7 @@ export class NumberBox extends Phaser.GameObjects.Container {
     setTween() {
         let self = this;
         const Between = Phaser.Math.Between;
-        let gameObject = this.outerRect as any;
+        let gameObject = this as any;
 
         gameObject
             .setInteractive()
@@ -188,6 +154,11 @@ export class NumberBox extends Phaser.GameObjects.Container {
                 gameObject.glowTask = null;
 
                 self.isMouseOver = false;
+            })
+            .on('pointerup', function () {
+                if (self.isMouseOver) {
+                    self.parentGrid.onBinDrop(self);
+                }
             });
     }
 }

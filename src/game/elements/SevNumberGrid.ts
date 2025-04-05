@@ -104,4 +104,13 @@ export class NumberGrid extends Phaser.GameObjects.Container {
             box.update(time, delta);
         }
     }
+
+    onBinDrop(bin: NumberBox) {
+        console.log(`Drop in bin ${bin}`);
+        for (let num of this.numbers) {
+            if (num.isDragging) {
+                num.visible = false;
+            }
+        }
+    }
 }

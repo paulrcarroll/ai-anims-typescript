@@ -66,9 +66,12 @@ export class ScreenNumber extends Phaser.GameObjects.Container {
             }
         }
 
-        // back to normal gradually
-        if (!this.isMouseOver) {
+        if (!this.scene.input.activePointer.isDown) {
             this.isDragging = false;
+        }
+
+        // back to normal gradually
+        if (!this.isMouseOver && !this.isDragging) {
             if (this.textSizeTarget > this.minFontSize) {
                 this.textSizeTarget -= 2;
                 this.text.setFontSize(this.textSizeTarget);
