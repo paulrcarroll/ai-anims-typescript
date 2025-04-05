@@ -1,7 +1,7 @@
 import { GameObjects, Scene } from 'phaser';
 
 import { EventBus } from '../EventBus';
-import { NumberTileSet } from '../elements/NumberTileSet';
+import { NumberTileSet } from '../elements/SlidingPuzzle/NumberTileSet';
 import { SlidingPuzzleModel } from '../models/SlidingPuzzleModel';
 
 export class NumberTileScene extends Scene {

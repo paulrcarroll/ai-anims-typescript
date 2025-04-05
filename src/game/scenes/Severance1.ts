@@ -1,43 +1,65 @@
 import { GameObjects, Scene } from 'phaser';
 
 import { EventBus } from '../EventBus';
+import { NumberGrid } from '../elements/SevNumberGrid';
+// @ts-ignore
+import ScanlinePostFX from '../effects/scanlinePostFX.js';
+// @ts-ignore
+import PixellateFX from '../effects/pixellate.js';
+// @ts-ignore
+import CRTFX from '../effects/CRT.js';
 
-import { NumberTile } from '../elements/SlidingPuzzle/NumberTile';
-
-export class MainMenu extends Scene {
+export class Severance1 extends Scene {
     background: GameObjects.Image;
     logo: GameObjects.Image;
     title: GameObjects.Text;
     logoTween: Phaser.Tweens.Tween | null;
+    updateList: Phaser.GameObjects.GameObject[] = [];
 
-    things: Phaser.GameObjects.GameObject[] = [];
+    textConfig1 = {
+        fontFamily: 'Arial',
+        fontSize: 16,
+        color: '#eeeeff',
+        stroke: '#ffffffaa',
+        strokeThickness: 2,
+        align: 'center',
+    };
 
     constructor() {
-        super('MainMenu');
+        super('Severance1');
     }
 
     create() {
-        this.background = this.add.image(512, 384, 'background');
+        var glowPlugin: any = this.plugins.get('rexglowfilterpipelineplugin');
 
-        this.logo = this.add.image(512, 300, 'logo').setDepth(100);
+        this.background = this.add.image(512, 384, 'severance-background1');
+        this.background.scale = 2.0;
 
-        this.title = this.add
-            .text(512, 460, 'Main Menu', {
-                fontFamily: 'Arial Black',
-                fontSize: 38,
-                color: '#ffffff',
-                stroke: '#000000',
-                strokeThickness: 8,
-                align: 'center',
-            })
-            .setOrigin(0.5)
-            .setDepth(100);
+        let logo = this.add.image(900, 40, 'lumon-logo');
+        logo.scale = 0.2;
+        glowPlugin!.add(logo, {
+            intensity: 0.04,
+        });
+
+        let pipeline = this.cameras.main.setPostPipeline([
+            ScanlinePostFX,
+            CRTFX,
+        ]);
+
+        let numbers = Phaser.Display.Align.In.Center(
+            new NumberGrid(this, 15, 9),
+            this.background
+        );
+
+        this.updateList.push(numbers);
 
         EventBus.emit('current-scene-ready', this);
+
+        this.add.text(60, 30, `Lumon CactusLane`, this.textConfig1);
     }
 
     override update() {
-        this.things.forEach((thing) => {
+        this.updateList.forEach((thing) => {
             thing.update();
         });
     }

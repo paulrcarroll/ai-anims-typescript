@@ -18,6 +18,6 @@ export class Preloader extends Scene {
     }
 
     create() {
-        this.scene.start('NumberTileScene');
+        this.scene.start('Severance1');
     }
 }

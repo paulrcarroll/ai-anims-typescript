@@ -11,7 +11,7 @@ export interface GridPuzzleMove {
     fromIndex: number;
     toIndex: number;
     direction: TileMoveDirection;
-    state: string;
+    //state: string;
     nextState: string;
 }
 

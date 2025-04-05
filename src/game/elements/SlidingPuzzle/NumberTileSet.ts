@@ -5,8 +5,8 @@ import {
     IPuzzleDisplay,
     SlidingPuzzleModel,
     TileMoveDirection,
-} from '../models/SlidingPuzzleModel';
-import { toGridCoord } from '../models/ArrayUtils';
+} from '../../models/SlidingPuzzleModel';
+import { toGridCoord } from '../../models/ArrayUtils';
 
 export class NumberTileSet
     extends Phaser.GameObjects.Container
@@ -94,7 +94,7 @@ export class NumberTileSet
 
     makeTween(move: GridPuzzleMove) {
         const tile = this.tiles.find(
-            (t) => t.displayText === move.state[move.fromIndex].toString()
+            (t) => t.displayText === move.nextState[move.fromIndex].toString()
         );
 
         if (tile) {

@@ -11,10 +11,12 @@ export class Boot extends Scene {
 
         this.load.image('background', 'assets/bg.png');
         this.load.image('paper-background', 'assets/paper2.jpg');
+        this.load.image('severance-background1', 'assets/sev-bg1.jpg');
+        this.load.image('lumon-logo', 'assets/lumon-white.png');
 
         this.load.plugin(
-            'rexdropshadowpipelineplugin',
-            'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexdropshadowpipelineplugin.min.js',
+            'rexglowfilterpipelineplugin',
+            'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexglowfilterpipelineplugin.min.js',
             true
         );
     }
