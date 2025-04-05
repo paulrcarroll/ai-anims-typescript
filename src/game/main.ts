@@ -15,7 +15,7 @@ import PixellateFX from './effects/pixellate.js';
 // @ts-ignore
 import LasersPostFX from './effects/lasersPostFX.js';
 // @ts-ignore
-import CRTFX from './effects/CRT.js';
+import CRTFX from './effects/crt.js';
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig

@@ -7,7 +7,7 @@ import ScanlinePostFX from '../effects/scanlinePostFX.js';
 // @ts-ignore
 import PixellateFX from '../effects/pixellate.js';
 // @ts-ignore
-import CRTFX from '../effects/CRT.js';
+import CRTFX from '../effects/crt.js';
 
 export class Severance1 extends Scene {
     background: GameObjects.Image;
